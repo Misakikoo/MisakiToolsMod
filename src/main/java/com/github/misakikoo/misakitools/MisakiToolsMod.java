@@ -1,5 +1,7 @@
 package com.github.misakikoo.misakitools;
 
+import org.apache.logging.log4j.Logger;
+
 import com.github.misakikoo.misakitools.common.CommonProxy;
 
 import net.minecraftforge.fml.common.Mod;
@@ -12,20 +14,21 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 
 
-@Mod(modid = MisakiToolsMod.MODID, name = MisakiToolsMod.NAME, version = MisakiToolsMod.VERSION, acceptedMinecraftVersions = "1.8.9")
+@Mod(modid = MisakiToolsMod.MODID, name = MisakiToolsMod.NAME, version = MisakiToolsMod.VERSION)
 public class MisakiToolsMod{
     public static final String MODID = "misakitools";   //Mod的唯一标识符
     public static final String NAME = "MisakiToolsMod"; //Mod名字
     public static final String VERSION = "0.1.0";       //Mod版本
 
     //代理
-    @SidedProxy(clientSide = "com.github.ustc_zzzz.fmltutor.client.ClientProxy", serverSide = "com.github.ustc_zzzz.fmltutor.common.CommonProxy")
+    @SidedProxy(clientSide = "com.github.misakikoo.misakitools.client.ClientProxy", serverSide = "com.github.misakikoo.misakitools.common.CommonProxy")
     public static CommonProxy proxy;
 
     //将生成的Mod的实例，注册到对应的Mod的id
     @Instance(MisakiToolsMod.MODID)
     public static MisakiToolsMod instance;
 
+    private Logger logger;  //日志
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event){
@@ -49,5 +52,10 @@ public class MisakiToolsMod{
         // TODO
 
         proxy.postInit(event);
+    }
+
+    //获取日志
+    public Logger getLogger() {
+        return logger;
     }
 }
