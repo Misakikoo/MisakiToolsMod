@@ -12,15 +12,15 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockLoader {
 
-    public static Block blockChromite = new BlockChromite().setUnlocalizedName("chromite");
+    public static Block blockChromiteOre = new BlockChromiteOre().setUnlocalizedName("chromiteOre");
     public static void init() {
-        ForgeRegistries.BLOCKS.register(blockChromite.setRegistryName("chromite"));
-        ForgeRegistries.ITEMS.register(new ItemBlock(blockChromite).setRegistryName(blockChromite.getRegistryName()));
+        ForgeRegistries.BLOCKS.register(blockChromiteOre.setRegistryName("chromite_ore"));
+        ForgeRegistries.ITEMS.register(new ItemBlock(blockChromiteOre).setRegistryName(blockChromiteOre.getRegistryName()));
     }
 
     @SideOnly(Side.CLIENT)
     public static void clientInit() {
-        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(blockChromite), 0, new ModelResourceLocation(blockChromite.getRegistryName(), "inventory"));
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(blockChromiteOre), 0, new ModelResourceLocation(blockChromiteOre.getRegistryName(), "inventory"));
 
     }
 }

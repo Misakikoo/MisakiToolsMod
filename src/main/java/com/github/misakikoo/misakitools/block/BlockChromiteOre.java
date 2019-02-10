@@ -5,8 +5,8 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 
 //铬铁矿
-public class BlockChromite extends Block {
-    public BlockChromite() {
+public class BlockChromiteOre extends Block {
+    public BlockChromiteOre() {
         super(Material.ROCK);
         this.setSoundType(SoundType.STONE);//表示方块踩上去的声音
         this.setHardness(50.0f);//表示方块硬度 黑曜石的硬度为50

@@ -1,6 +1,6 @@
 {
     "parent": "block/cube_all",
     "textures": {
-        "all": "misakitools:block/chromite"
+        "all": "misakitools:block/chromite_ore"
     }
 }
