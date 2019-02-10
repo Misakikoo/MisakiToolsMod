@@ -33,24 +33,18 @@ public class MisakiToolsMod{
     @EventHandler
     public void preInit(FMLPreInitializationEvent event){
         // 加载配置文件，实例化物品和方块，并注册它们
-        // TODO
-
         proxy.preInit(event);
     }
 
     @EventHandler
     public void init(FMLInitializationEvent event){
         //为Mod进行设置，如注册合成表和烧炼系统，并且向其他Mod发送交互信息
-        // TODO
-
         proxy.init(event);
     }
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event){
         //接收其他Mod发送的交互信息，并完成对Mod的设置
-        // TODO
-
         proxy.postInit(event);
     }
 
