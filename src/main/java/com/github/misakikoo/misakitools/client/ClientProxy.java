@@ -1,7 +1,9 @@
 package com.github.misakikoo.misakitools.client;
 
+import com.github.misakikoo.misakitools.block.BlockLoader;
 import com.github.misakikoo.misakitools.common.CommonProxy;
 
+import com.github.misakikoo.misakitools.item.ItemLoader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -10,6 +12,8 @@ public class ClientProxy extends CommonProxy{
 	@Override
     public void preInit(FMLPreInitializationEvent event){
     	super.preInit(event);
+		ItemLoader.clientInit();
+		BlockLoader.clientInit();
 	}
 
 	@Override
