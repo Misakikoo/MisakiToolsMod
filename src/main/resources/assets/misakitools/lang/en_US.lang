@@ -1,5 +1,9 @@
 #Item
 item.goldenEgg.name=Golden egg
+item.chromeIngot.name=Chrome ingot
 
 #Block
 tile.chromiteOre.name=Chromite ore
+
+#CreativeTab
+itemGroup.misakitools=Misaki'Tools

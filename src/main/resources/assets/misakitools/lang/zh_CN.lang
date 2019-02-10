@@ -1,2 +1,9 @@
+#Item
 item.goldenEgg.name=金蛋
+item.chromeIngot.name=铬锭
+
+#Block
 tile.chromiteOre.name=铬铁矿
+
+#CreativeTab
+itemGroup.misakitools=Misaki的工具箱

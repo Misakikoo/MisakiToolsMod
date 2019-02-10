@@ -4,12 +4,11 @@ import com.github.misakikoo.misakitools.creativetab.CreativeTabsMisakiTools;
 
 import net.minecraft.item.Item;
 
-//金蛋
-public class ItemGoldenEgg extends Item {
-    public ItemGoldenEgg() {
+public class ItemChromeIngot extends Item {
+    public ItemChromeIngot() {
         super();
 
-        this.setUnlocalizedName("goldenEgg");
+        this.setUnlocalizedName("chromeIngot");
 
         this.setCreativeTab(CreativeTabsMisakiTools.tabMisakiTools);
     }

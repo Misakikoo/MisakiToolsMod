@@ -3,6 +3,7 @@ package com.github.misakikoo.misakitools.item;
 import net.minecraft.item.Item;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -10,14 +11,27 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemLoader {
 
-    public static Item itemGoldenEgg = new ItemGoldenEgg().setUnlocalizedName("goldenEgg");
-    public static void init() {
-        ForgeRegistries.ITEMS.register(itemGoldenEgg.setRegistryName("golden_egg"));
+    public static Item goldenEgg = new ItemGoldenEgg();
+    public static Item chromeIngot = new ItemChromeIngot();
+
+    public ItemLoader(FMLPreInitializationEvent event) {
+        register(goldenEgg,"golden_egg");
+        register(chromeIngot, "chrome_ingot.json");
     }
 
     @SideOnly(Side.CLIENT)
-    public static void clientInit() {
-        ModelLoader.setCustomModelResourceLocation(itemGoldenEgg, 0, new ModelResourceLocation(itemGoldenEgg.getRegistryName(), "inventory"));
+    public static void registerRenders() {
+        registerRender(goldenEgg);
+    }
+
+    private static void register(Item item, String name) {
+        ForgeRegistries.ITEMS.register(item.setRegistryName(name));
+    }
+
+    @SideOnly(Side.CLIENT)
+    private static void registerRender(Item item) {
+        ModelResourceLocation model = new ModelResourceLocation(goldenEgg.getRegistryName(), "inventory");
+        ModelLoader.setCustomModelResourceLocation(item, 0, model);
 
     }
 }
