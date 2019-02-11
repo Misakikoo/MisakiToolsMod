@@ -7,8 +7,6 @@ import net.minecraft.item.ItemStack;
 
 public class CreativeTabsMisakiTools extends CreativeTabs {
 
-    public static CreativeTabsMisakiTools tabMisakiTools = new CreativeTabsMisakiTools();
-
     public CreativeTabsMisakiTools() {
         super("misakitools");
     }
