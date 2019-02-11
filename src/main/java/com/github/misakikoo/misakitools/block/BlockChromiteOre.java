@@ -1,6 +1,6 @@
 package com.github.misakikoo.misakitools.block;
 
-import com.github.misakikoo.misakitools.creativetab.CreativeTabsMisakiTools;
+import com.github.misakikoo.misakitools.creativetab.CreativeTabsLoader;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -21,7 +21,7 @@ public class BlockChromiteOre extends Block {
 
         this.setUnlocalizedName("chromiteOre");
 
-        this.setCreativeTab(CreativeTabsMisakiTools.tabMisakiTools);
+        this.setCreativeTab(CreativeTabsLoader.tabMisakiTools);
     }
 
 

@@ -1,6 +1,6 @@
 package com.github.misakikoo.misakitools.item;
 
-import com.github.misakikoo.misakitools.creativetab.CreativeTabsMisakiTools;
+import com.github.misakikoo.misakitools.creativetab.CreativeTabsLoader;
 
 import net.minecraft.item.Item;
 
@@ -11,6 +11,6 @@ public class ItemGoldenEgg extends Item {
 
         this.setUnlocalizedName("goldenEgg");
 
-        this.setCreativeTab(CreativeTabsMisakiTools.tabMisakiTools);
+        this.setCreativeTab(CreativeTabsLoader.tabMisakiTools);
     }
 }

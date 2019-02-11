@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "misakitools:golden_egg"
+        }
+    ],
+    "result": {
+        "item": "minecraft:egg",
+        "count": 16
+    }
+}

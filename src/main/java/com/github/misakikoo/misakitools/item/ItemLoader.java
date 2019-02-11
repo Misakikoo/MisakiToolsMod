@@ -16,12 +16,13 @@ public class ItemLoader {
 
     public ItemLoader(FMLPreInitializationEvent event) {
         register(goldenEgg,"golden_egg");
-        register(chromeIngot, "chrome_ingot.json");
+        register(chromeIngot, "chrome_ingot");
     }
 
     @SideOnly(Side.CLIENT)
     public static void registerRenders() {
         registerRender(goldenEgg);
+        registerRender(chromeIngot);
     }
 
     private static void register(Item item, String name) {

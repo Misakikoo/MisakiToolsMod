@@ -15,4 +15,11 @@ public class CreativeTabsMisakiTools extends CreativeTabs {
     public ItemStack getTabIconItem() {
         return new ItemStack(ItemLoader.goldenEgg);
     }
+
+    @Override
+    public boolean hasSearchBar(){
+        return true;
+    }
+
+
 }
