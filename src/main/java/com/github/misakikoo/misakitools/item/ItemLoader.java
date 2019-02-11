@@ -31,7 +31,7 @@ public class ItemLoader {
 
     @SideOnly(Side.CLIENT)
     private static void registerRender(Item item) {
-        ModelResourceLocation model = new ModelResourceLocation(goldenEgg.getRegistryName(), "inventory");
+        ModelResourceLocation model = new ModelResourceLocation(item.getRegistryName(), "inventory");
         ModelLoader.setCustomModelResourceLocation(item, 0, model);
 
     }
