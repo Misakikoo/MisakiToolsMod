@@ -9,7 +9,7 @@ public class ConfigLoader {
     private static Logger logger;
 
 
-    public static int diamondBurnTime;//钻石燃料烧制时间
+    public static int diamondBurnTime;
 
 
     public ConfigLoader(FMLPreInitializationEvent event) {
