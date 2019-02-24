@@ -2,8 +2,22 @@
 item.goldenEgg.name=Golden egg
 item.chromeIngot.name=Chrome ingot
 
+#Food
+item.redstoneApple.name=Redstone apple
+
 #Block
 tile.chromiteOre.name=Chromite ore
+
+#Sword
+item.excalibur.name=excalibur
+
+#Tool
+
+#Armor
+item.redstoneHelmet.name=Redstone Helmet
+item.redstoneChestplate.name=Redstone Chestplate
+item.redstoneLeggings.name=Redstone Leggings
+item.redstoneBoots.name=Redstone Boots
 
 #CreativeTab
 itemGroup.misakitools=Misaki'Tools

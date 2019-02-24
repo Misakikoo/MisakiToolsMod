@@ -1,0 +1,6 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer0": "misakitools:item/redstone_helmet"
+    }
+}

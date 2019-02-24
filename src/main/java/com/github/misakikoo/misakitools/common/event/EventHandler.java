@@ -36,13 +36,14 @@ public class EventHandler {
     @SubscribeEvent
     public static void sayHelloOnPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event){
         //event.setCanceled(true);
+        if(event.isCanceled()) return;
 
         NBTTagCompound entityData = event.player.getEntityData();
-        if(!event.isCanceled() && !entityData.getBoolean("firstLoggedIn")) {
+        if(!entityData.getBoolean("firstLoggedIn")) {
             entityData.setBoolean("firstLoggedIn", true);
-            event.player.sendMessage(new TextComponentString("Welcome back"));
-        } else {
             event.player.sendMessage(new TextComponentString("Welcome join the new world"));
+        } else {
+            event.player.sendMessage(new TextComponentString("Welcome back"));
         }
     }
 
@@ -62,8 +63,8 @@ public class EventHandler {
     //pick up
     @SubscribeEvent
     public static void pickUpItem(EntityItemPickupEvent event) {
-        MisakiToolsMod.instance.getLogger().info(event.getEntityPlayer().getName()+" pick up "+event.getItem().getName());
-        Minecraft.getMinecraft().player.sendMessage(new TextComponentString(event.getEntityPlayer().getName()+" pick up "+event.getItem().getName()));
+        MisakiToolsMod.instance.getLogger().info(event.getEntityPlayer().getName()+" pick up "+event.getItem().getItem().getUnlocalizedName());
+        Minecraft.getMinecraft().player.sendMessage(new TextComponentString(event.getEntityPlayer().getName()+" pick up "+event.getItem().getItem().getUnlocalizedName()));
     }
 
     //on player jump

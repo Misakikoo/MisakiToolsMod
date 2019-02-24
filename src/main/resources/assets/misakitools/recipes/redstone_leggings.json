@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "###",
+        "# #",
+        "# #"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:redstone"
+        }
+    },
+    "result": {
+        "item": "misakitools:redstone_leggings",
+        "count": 1
+    }
+}
