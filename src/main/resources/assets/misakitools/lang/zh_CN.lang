@@ -7,3 +7,10 @@ tile.chromiteOre.name=铬铁矿
 
 #CreativeTab
 itemGroup.misakitools=Misaki的工具箱
+
+#Skill
+misakitools.useskill=使用技能
+
+#Others
+misakitools.key=Misaki的工具箱
+

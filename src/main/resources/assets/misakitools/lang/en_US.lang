@@ -7,3 +7,9 @@ tile.chromiteOre.name=Chromite ore
 
 #CreativeTab
 itemGroup.misakitools=Misaki'Tools
+
+#Skill
+misakitools.useskill=Use Skill
+
+#Others
+misakitools.key=MisakiTools
