@@ -10,6 +10,7 @@ public class ConfigLoader {
 
 
     public static int diamondBurnTime;
+    public static int enchantmentFireBurnId;
 
 
     public ConfigLoader(FMLPreInitializationEvent event) {
@@ -25,8 +26,7 @@ public class ConfigLoader {
         String comment;
 
 
-        //钻石燃料  12800ticks
-        comment = "How many seconds can a diamond burn in a furnace";
+        comment = "How many seconds(*20ticks) can a diamond burn in a furnace";
         diamondBurnTime = config.get(Configuration.CATEGORY_GENERAL, "diamondBurnTime", 640, comment).getInt();
 
 

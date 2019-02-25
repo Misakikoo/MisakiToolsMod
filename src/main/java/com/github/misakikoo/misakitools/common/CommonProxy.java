@@ -3,6 +3,7 @@ package com.github.misakikoo.misakitools.common;
 import com.github.misakikoo.misakitools.block.BlockLoader;
 import com.github.misakikoo.misakitools.common.event.EventHandler;
 import com.github.misakikoo.misakitools.common.network.NetworkHandler;
+import com.github.misakikoo.misakitools.enchantment.EnchantmentLoader;
 import com.github.misakikoo.misakitools.item.ItemLoader;
 import com.github.misakikoo.misakitools.creativetab.CreativeTabsLoader;
 import com.github.misakikoo.misakitools.crafting.CraftingLoader;
@@ -22,6 +23,7 @@ public class CommonProxy {
 
     public void init(FMLInitializationEvent event) {
 		new CraftingLoader();
+		new EnchantmentLoader();
 		new EventHandler();
 	}
 

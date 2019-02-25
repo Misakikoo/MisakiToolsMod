@@ -23,7 +23,7 @@ item.redstoneBoots.name=Redstone Boots
 itemGroup.misakitools=Misaki'Tools
 
 #Enchantment
-enchantment.fireBurn=Fire Burning
+enchantment.fire_burn=Fire Burning
 
 #Skill
 misakitools.useskill=Use Skill

@@ -1,10 +1,10 @@
 # Created by .ignore support plugin (hsz.mobi)
 .gradle/
+.idea/
+run/
 MisakiToolsMod.ipr
 MisakiToolsMod.iws
-com.github.misakikoo.MisakiToolsMod.api.iml
-com.github.misakikoo.MisakiToolsMod.iml
-com.github.misakikoo.MisakiToolsMod.main.iml
-com.github.misakikoo.MisakiToolsMod.test.iml
-run/
+MisakiToolsMod.iml
+
+
 

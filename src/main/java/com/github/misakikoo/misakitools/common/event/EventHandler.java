@@ -1,23 +1,29 @@
 package com.github.misakikoo.misakitools.common.event;
 
 import com.github.misakikoo.misakitools.MisakiToolsMod;
+import com.github.misakikoo.misakitools.enchantment.EnchantmentLoader;
 import com.github.misakikoo.misakitools.item.ItemLoader;
 import com.github.misakikoo.misakitools.block.BlockLoader;
 
-import ibxm.Player;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -64,14 +70,16 @@ public class EventHandler {
         }
     }
 
-    //pig fed the wrong food will boom!
+    //pig fed the WRONG food will BOOM!
     @SubscribeEvent
     public static void onEntityInteract(EntityInteract event) {
+        //event.setCanceled(true);
+
         EntityPlayer player = event.getEntityPlayer();
         if(player.isServerWorld() && event.getTarget() instanceof EntityPig) {
             EntityPig pig = (EntityPig) event.getTarget();
             ItemStack stack = player.getHeldItem(EnumHand.MAIN_HAND);
-            if(stack != null && (stack.getItem() == Items.WHEAT || stack.getItem() == Items.WHEAT_SEEDS)) {
+            if(!stack.isEmpty() && (stack.getItem() == Items.WHEAT || stack.getItem() == Items.WHEAT_SEEDS)) {
                 player.attackEntityFrom((new DamageSource("byPigBoom")).setDifficultyScaled().setDamageBypassesArmor().setExplosion(), 8.0F);
                 player.getEntityWorld().createExplosion(pig, pig.posX, pig.posY, pig.posZ, 2.0F, false);
                 pig.setDead();
@@ -79,11 +87,34 @@ public class EventHandler {
         }
     }
 
+    //fireBurn enchantment
+    @SubscribeEvent
+    public  static  void onBlockHarvestDrops(BlockEvent.HarvestDropsEvent event) {
+        //event.setCanceled(true);
+
+        if(!event.getWorld().isRemote && event.getHarvester() != null) {
+            ItemStack itemStack = event.getHarvester().getHeldItem(EnumHand.MAIN_HAND);
+            int enchantmentLevel = EnchantmentHelper.getEnchantmentLevel(EnchantmentLoader.fireBurn, itemStack);
+            if(enchantmentLevel > 0 && itemStack.getItem() instanceof ItemPickaxe) {
+                for(int i = 0; i < event.getDrops().size(); i++){
+                    ItemStack stack = event.getDrops().get(i);
+                    ItemStack newStack = FurnaceRecipes.instance().getSmeltingResult(stack);
+                    if(!newStack.isEmpty()) {
+                        newStack = newStack.copy();
+                        newStack.setCount(stack.getCount() * enchantmentLevel);
+                        event.getDrops().set(i, newStack);
+                    }
+                }
+            }
+        }
+    }
+
+
 
     //pick up
     @SubscribeEvent
     public static void pickUpItem(EntityItemPickupEvent event) {
-        MisakiToolsMod.instance.getLogger().info(event.getEntityPlayer().getName()+" pick up "+event.getItem().getItem().getUnlocalizedName());
+        MisakiToolsMod.instance.getLogger().info(event.getEntityPlayer().getName()+" pick up "+event.getItem().getItem().toString());
         Minecraft.getMinecraft().player.sendMessage(new TextComponentString(event.getEntityPlayer().getName()+" pick up "+event.getItem().getItem().getUnlocalizedName()));
     }
 
