@@ -6,10 +6,13 @@ import com.github.misakikoo.misakitools.block.BlockLoader;
 
 import ibxm.Player;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
@@ -21,6 +24,7 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.eventhandler.EventBus;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
 
 
 @Mod.EventBusSubscriber(modid = MisakiToolsMod.MODID)
@@ -59,6 +63,22 @@ public class EventHandler {
             event.player.inventory.addItemStackToInventory(new ItemStack(Items.WOODEN_PICKAXE, 1));
         }
     }
+
+    //pig fed the wrong food will boom!
+    @SubscribeEvent
+    public static void onEntityInteract(EntityInteract event) {
+        EntityPlayer player = event.getEntityPlayer();
+        if(player.isServerWorld() && event.getTarget() instanceof EntityPig) {
+            EntityPig pig = (EntityPig) event.getTarget();
+            ItemStack stack = player.getHeldItem(EnumHand.MAIN_HAND);
+            if(stack != null && (stack.getItem() == Items.WHEAT || stack.getItem() == Items.WHEAT_SEEDS)) {
+                player.attackEntityFrom((new DamageSource("byPigBoom")).setDifficultyScaled().setDamageBypassesArmor().setExplosion(), 8.0F);
+                player.getEntityWorld().createExplosion(pig, pig.posX, pig.posY, pig.posZ, 2.0F, false);
+                pig.setDead();
+            }
+        }
+    }
+
 
     //pick up
     @SubscribeEvent

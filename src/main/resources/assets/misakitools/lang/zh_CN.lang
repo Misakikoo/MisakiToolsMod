@@ -22,8 +22,14 @@ item.redstoneBoots.name=红石靴子
 #CreativeTab
 itemGroup.misakitools=Misaki的工具箱
 
+#Enchantment
+enchantment.fireBurn=烧炼
+
 #Skill
 misakitools.useskill=使用技能
+
+#Dead
+death.attack.byPigBoom=%s被猪拱了！
 
 #Others
 misakitools.key=Misaki的工具箱
