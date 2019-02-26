@@ -13,22 +13,21 @@ public class CraftingLoader {
     public CraftingLoader() {
         //registerRecipe();
         registerSmelting();
-        registerFuel();
+        //registerFuel();
     }
 
     //private static void registerRecipe() {}
-        //just use .json for mc1.12
+        //use .json to register recipe ;l   for mc1.12
 
     private static void registerSmelting() {
         GameRegistry.addSmelting(BlockLoader.chromiteOre, new ItemStack(ItemLoader.chromeIngot,2 ), 0.5F);
     }
 
     private static void registerFuel() {
-        GameRegistry.registerFuelHandler(new IFuelHandler() {
-            @Override
-            public int getBurnTime(ItemStack fuel) {
-                return Items.DIAMOND != fuel.getItem() ? 0 : Math.max(0, ConfigLoader.diamondBurnTime)*20;
-            }
-        });
+        /*
+        use Item#getItemBurnTime to set their item's burn times.
+        OR use FurnaceFuelBurnTimeEvent to change burn time
+         */
+
     }
 }

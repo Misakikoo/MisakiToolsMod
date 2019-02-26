@@ -9,8 +9,7 @@ public class ConfigLoader {
     private static Logger logger;
 
 
-    public static int diamondBurnTime;
-    public static int enchantmentFireBurnId;
+    public static int goldenEggBurnTime;
 
 
     public ConfigLoader(FMLPreInitializationEvent event) {
@@ -26,8 +25,8 @@ public class ConfigLoader {
         String comment;
 
 
-        comment = "How many seconds(*20ticks) can a diamond burn in a furnace";
-        diamondBurnTime = config.get(Configuration.CATEGORY_GENERAL, "diamondBurnTime", 640, comment).getInt();
+        comment = "How many seconds(*20ticks) can a goldenEgg burn in a furnace";
+        goldenEggBurnTime = config.get(Configuration.CATEGORY_GENERAL, "goldenEggBurnTime", 12800, comment).getInt();
 
 
         config.save();

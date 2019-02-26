@@ -25,12 +25,20 @@ itemGroup.misakitools=Misaki的工具箱
 #Enchantment
 enchantment.fire_burn=烧炼
 
+#Potion
+potion.explosion=爆炸
+
 #Skill
 misakitools.useskill=使用技能
 
 #Dead
 death.attack.byPigBoom=%s被猪拱了！
+death.attack.byPotionBoom=%s炸掉了!
+
+#Key
+key.misakitools.showTime=显示时间
+key.categories.misakitools=Misaki Tools
 
 #Others
-misakitools.key=Misaki的工具箱
+chat.misakitools.time=你生存了 %1$s 天, %2$s 小时, %3$s 分钟..
 

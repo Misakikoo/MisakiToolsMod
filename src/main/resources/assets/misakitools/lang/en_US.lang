@@ -25,11 +25,19 @@ itemGroup.misakitools=Misaki'Tools
 #Enchantment
 enchantment.fire_burn=Fire Burning
 
+#Potion
+potion.explosion=explosion
+
 #Skill
 misakitools.useskill=Use Skill
 
 #Dead
 death.attack.byPigBoom=%s was dead because of a pig!
+death.attack.byPotionBoom=%s was boom!
+
+#Key
+key.misakitools.showTime=Show Time
+key.categories.misakitools=Misaki Tools
 
 #Others
-misakitools.key=MisakiTools
+chat.misakitools.time=You survived for %1$s days, %2$s hours, %3$s minutes..

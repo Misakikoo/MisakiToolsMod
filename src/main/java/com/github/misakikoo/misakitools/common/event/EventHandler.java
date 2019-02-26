@@ -1,13 +1,19 @@
 package com.github.misakikoo.misakitools.common.event;
 
 import com.github.misakikoo.misakitools.MisakiToolsMod;
+import com.github.misakikoo.misakitools.client.key.KeyLoader;
+import com.github.misakikoo.misakitools.common.ConfigLoader;
 import com.github.misakikoo.misakitools.enchantment.EnchantmentLoader;
 import com.github.misakikoo.misakitools.item.ItemLoader;
 import com.github.misakikoo.misakitools.block.BlockLoader;
+import com.github.misakikoo.misakitools.potion.PotionLoader;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -15,22 +21,27 @@ import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.living.PotionEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
+import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.Event;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.eventhandler.EventBus;
+import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 
 @Mod.EventBusSubscriber(modid = MisakiToolsMod.MODID)
@@ -89,7 +100,7 @@ public class EventHandler {
 
     //fireBurn enchantment
     @SubscribeEvent
-    public  static  void onBlockHarvestDrops(BlockEvent.HarvestDropsEvent event) {
+    public static void onBlockHarvestDrops(BlockEvent.HarvestDropsEvent event) {
         //event.setCanceled(true);
 
         if(!event.getWorld().isRemote && event.getHarvester() != null) {
@@ -108,8 +119,38 @@ public class EventHandler {
             }
         }
     }
+    /*
+    //potion Explosion
+    @SubscribeEvent
+    public static void onPotionBeThrown(LivingEvent event) {
+        //event.setCanceled(true);
 
+        EntityLivingBase entity = event.getEntityLiving();
+        if(entity.isServerWorld()){
+            PotionEffect effect = entity.getActivePotionEffect(PotionLoader.potionExplosion);
+            if(effect != null) {
+                entity.attackEntityFrom((new DamageSource("byPotionBoom")).setDifficultyScaled().setDamageBypassesArmor().setExplosion(), 5.0F);
+                entity.getEntityWorld().createExplosion(entity, entity.posX, entity.posY, entity.posZ, 2.0F, false);
+            }
+        }
+    }
+    */
 
+    //key show time
+    @SubscribeEvent
+    @SideOnly(Side.CLIENT)
+    public static void onKeyInput(InputEvent.KeyInputEvent event) {
+        if(KeyLoader.showTime.isPressed()) {
+            EntityPlayer player = Minecraft.getMinecraft().player;
+            World world = Minecraft.getMinecraft().world;
+            long time = world.getWorldTime();
+            long day = time / 24000;
+            long hour = (time - 24000 * day) * 24 / 24000;
+            long minute = (time - 24000 * day - 24000 / 24 * hour) * 24 * 60 / 24000;
+            //long second = (time - 24000 * day - 24000 / 24 * hour - 24000 / 24 / 60 * minute) * 24 * 60 * 60 / 24000;
+            ((EntityPlayerSP) player).sendMessage(new TextComponentTranslation("chat.misakitools.time", day, hour, minute));
+        }
+    }
 
     //pick up
     @SubscribeEvent
