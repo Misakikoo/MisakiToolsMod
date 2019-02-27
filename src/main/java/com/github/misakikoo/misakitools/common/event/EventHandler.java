@@ -8,12 +8,14 @@ import com.github.misakikoo.misakitools.item.ItemLoader;
 import com.github.misakikoo.misakitools.block.BlockLoader;
 import com.github.misakikoo.misakitools.potion.PotionLoader;
 
+import ibxm.Player;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -92,7 +94,7 @@ public class EventHandler {
             ItemStack stack = player.getHeldItem(EnumHand.MAIN_HAND);
             if(!stack.isEmpty() && (stack.getItem() == Items.WHEAT || stack.getItem() == Items.WHEAT_SEEDS)) {
                 player.attackEntityFrom((new DamageSource("byPigBoom")).setDifficultyScaled().setDamageBypassesArmor().setExplosion(), 8.0F);
-                player.getEntityWorld().createExplosion(pig, pig.posX, pig.posY, pig.posZ, 2.0F, false);
+                player.getEntityWorld().newExplosion(pig, pig.posX, pig.posY, pig.posZ, 2.0F, true, true);
                 pig.setDead();
             }
         }
@@ -119,22 +121,24 @@ public class EventHandler {
             }
         }
     }
-    /*
+
     //potion Explosion
     @SubscribeEvent
-    public static void onPotionBeThrown(LivingEvent event) {
+    public static void PotionExplosion(PotionEvent event) {
         //event.setCanceled(true);
 
-        EntityLivingBase entity = event.getEntityLiving();
-        if(entity.isServerWorld()){
-            PotionEffect effect = entity.getActivePotionEffect(PotionLoader.potionExplosion);
-            if(effect != null) {
-                entity.attackEntityFrom((new DamageSource("byPotionBoom")).setDifficultyScaled().setDamageBypassesArmor().setExplosion(), 5.0F);
-                entity.getEntityWorld().createExplosion(entity, entity.posX, entity.posY, entity.posZ, 2.0F, false);
+        EntityLivingBase player = event.getEntityLiving();
+        if(player instanceof EntityPlayer && player.isServerWorld()){
+            if(player.getActivePotionEffect(PotionLoader.potionExplosion) != null) {
+                /**
+                 * i don't know why it will create Explosion Constantly then CRASH my game
+                player.attackEntityFrom((new DamageSource("byPotionBoom")).setDifficultyScaled().setDamageBypassesArmor().setExplosion(), 8.0F);
+                player.getEntityWorld().newExplosion(player, player.posX, player.posY, player.posZ, 2.0F, true, true);//isCreateFire(), isDamagesTerrain()
+                player.clearActivePotions();
+                */
             }
         }
     }
-    */
 
     //key show time
     @SubscribeEvent
@@ -148,43 +152,45 @@ public class EventHandler {
             long hour = (time - 24000 * day) * 24 / 24000;
             long minute = (time - 24000 * day - 24000 / 24 * hour) * 24 * 60 / 24000;
             //long second = (time - 24000 * day - 24000 / 24 * hour - 24000 / 24 / 60 * minute) * 24 * 60 * 60 / 24000;
-            ((EntityPlayerSP) player).sendMessage(new TextComponentTranslation("chat.misakitools.time", day, hour, minute));
+            player.sendMessage(new TextComponentTranslation("chat.misakitools.time", day, hour, minute));
         }
     }
 
-    //pick up
+    //pick up item
     @SubscribeEvent
     public static void pickUpItem(EntityItemPickupEvent event) {
         MisakiToolsMod.instance.getLogger().info(event.getEntityPlayer().getName()+" pick up "+event.getItem().getItem().toString());
         Minecraft.getMinecraft().player.sendMessage(new TextComponentString(event.getEntityPlayer().getName()+" pick up "+event.getItem().getItem().getUnlocalizedName()));
     }
 
-    //on player jump
+    /**
+     * i think it's BAD to cpu
+    //create a Primed TNT on player jump
     @SubscribeEvent
     public static void onPlayerJump(LivingEvent.LivingJumpEvent event) {
-        if(!(event.getEntityLiving() instanceof EntityPlayer)) return;
+        if(event.getEntityLiving() instanceof EntityPlayer) {
+            BlockPos pos = event.getEntityLiving().getPosition();
+            World world = event.getEntityLiving().world;
 
-        EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-        BlockPos pos = event.getEntityLiving().getPosition();
-        World world = event.getEntityLiving().world;
-        PlayerJumpEvent event1 = new PlayerJumpEvent(player, pos, world);
-        EVENT_BUS.post(event1);
-
-        event1.setCanceled(true);
-
-        event1.placeTNTPrimed();
-
+            //event.setCanceled(true);
+            if(!event.isCanceled() && !world.isRemote) {
+                Entity tnt = new EntityTNTPrimed(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, null);
+                world.spawnEntity(tnt);
+            }
+        }
     }
+     */
 
-    //on player interact
     /*
+     * canceled interact
+    //on player interact
     @SubscribeEvent
     public static void onPlayerInteract(PlayerInteractEvent event){
         if(event.getWorld().isRemote) return;
 
         event.setCanceled(true);//canceled interact
     }
-    */
+     */
 
 
 

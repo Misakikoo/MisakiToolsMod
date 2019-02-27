@@ -18,7 +18,7 @@ public class CommonProxy {
     	new CreativeTabsLoader(event);
 		new ItemLoader(event);
 		new BlockLoader(event);
-		//new PotionLoader(event);
+		new PotionLoader(event);
 	}
 
     public void init(FMLInitializationEvent event) {
